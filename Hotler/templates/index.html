@@ -1,0 +1,59 @@
+<h1 id="hotler">Hotler</h1>
+<p>Index your hotel and get an idea of what people say on it !</p>
+<h2 id="installation-and-usage">Installation and usage</h2>
+<h3 id="environment-setup">Environment setup</h3>
+<p>create a virtualenv and install the required libs</p>
+<pre><code class="lang-bash"><span class="hljs-meta"><span class="hljs-meta-keyword">$python</span> -m venv venv</span>
+<span class="hljs-meta"><span class="hljs-meta-keyword">$source</span> activate venv/bin/activate</span>
+<span class="hljs-meta"><span class="hljs-meta-keyword">$pip</span> install -r requirements.txt</span>
+</code></pre>
+<h3 id="ibm-keys">IBM keys</h3>
+<p>Please set the <code>API_KEY</code> and <code>URL</code> of the service in the <code>Hotler/config.py</code> file.</p>
+<h3 id="run-the-server">Run the server</h3>
+<p>You can run the server using</p>
+<pre><code class="lang-bash"><span class="hljs-meta"><span class="hljs-meta-keyword">$python</span> app.py</span>
+</code></pre>
+<p>The server can then be access on your localhost on port <code>8080</code></p>
+<blockquote>
+<p>the server link on localhost</p>
+<p><code>http://127.0.0.1:8080/</code></p>
+</blockquote>
+<h2 id="tone-analyzer">Tone Analyzer</h2>
+<p>Get an overall score on the reviews for the given hotel</p>
+<h3 id="usage">Usage</h3>
+<p>to use the tone analyzer service, hit <code>/analyze/</code> endpoint with the hotel name as an argument as follows</p>
+<p><code>/analyzer/?q=HOTEL NAME</code></p>
+<p>you will get a json response in one of the following formats</p>
+<p>1.on success</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"status"</span> : <span class="hljs-string">"SUCCESS"</span>,
+    <span class="hljs-attr">"scores"</span>: {
+        <span class="hljs-attr">"anger"</span>: <span class="hljs-number">0.515031</span>,
+        <span class="hljs-attr">"fear"</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-attr">"joy"</span>: <span class="hljs-number">0.6710253499999999</span>,
+        <span class="hljs-attr">"sadness"</span>: <span class="hljs-number">0.5864978571428571</span>
+    }
+}
+</code></pre>
+<p>2.fail due to new hotel that is not in the db</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"status"</span> : <span class="hljs-string">"FAILED"</span>,
+    <span class="hljs-attr">"error"</span>: {
+        <span class="hljs-attr">"error_msg"</span>: <span class="hljs-string">"the hotel {hotel_name} doesn't exist."</span>
+        }
+}
+</code></pre>
+<p>3.fail due to some ibm error</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"status"</span> : <span class="hljs-string">"ERROR"</span>,
+    <span class="hljs-attr">"error"</span>: {
+        <span class="hljs-attr">"error_code"</span>: error_code,
+        <span class="hljs-attr">"error_msg"</span>: error_msg
+    }
+}
+</code></pre>
+<p>You can try these links as example</p>
+<p><a href="http://127.0.0.1:8080/analyze/?q=Hotel%20Roc%20Flamingo">Analyze hotel : Hotel Roc Flamingo</a></p>
+<p><a href="http://127.0.0.1:8080/analyze/?q=Sheraton">Analyze hotel : Hotel Sheraton (which doesn&#39;t exist)</a></p>
+<h2 id="hotel-indexer">Hotel Indexer</h2>
+<p>Index all the hotels with their corresponding data.</p>
