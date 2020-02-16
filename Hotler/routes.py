@@ -1,5 +1,6 @@
 from time import sleep
 from threading import Thread
+import numpy as np
 from flask import Flask, jsonify, request, render_template
 from ibm_watson import ApiException
 from Hotler.Analyzer import ToneAnalyzer
@@ -11,11 +12,47 @@ data_loader = DataLoader()
 elastic = Elastic()
 
 def store_labled_docs(index, data):
-    # label the data
-    for doc in data:
-        doc['tone'] = analyzer.analyze_text(doc['reviews.text'])
-        # store it
+    """for each hotel, find it's branches and calculate the scores in the database
+    
+    Arguments:
+        index {str} -- the index to store data in
+        data {pd.DataFrame} -- the input frame to load data from
+    """
+    # get list of all the unique names
+    names = data.name.unique()
+    for name in names:
+        doc = {"name": name, "branchs": {}}
+        # get list of all branchs by city
+        local_data = data.loc[data.name==name, :]
+        # aggregate of scores for this hotel
+        scores = []
+        cities = local_data.city.unique()
+        for city in cities:
+            # create the key for this city
+            doc['branchs'][city] = {}
+            # calculate the score on this city
+            doc['branchs'][city]['data'] = local_data.loc[local_data.city==city, :].to_dict("records")
+            city_score = analyzer.analyze_text(".".join(local_data.loc[local_data.city==city, "reviews.text"].values))
+            scores.append(city_score)
+            doc['branchs'][city]['tone'] = city_score
+        doc['tone'] = {}
+        for key in scores[0].keys():
+            doc['tone'][key] = np.mean([i[key] for i in scores])
+        
+        # store the doc of the hotel
         elastic.index_doc(index, doc)
+
+    # # aggregate on the same hotel
+    # scanned = []
+    # # label the data
+    # for doc in data:
+    #     hotel_name = doc['name']
+    #     if hotel_name in scanned:
+    #         pass
+    #     else:
+    #         doc['tone'] = analyzer.analyze_text(doc['reviews.text'])
+    #         # store it
+    #         elastic.index_doc(index, doc)
 
 
 
@@ -67,9 +104,9 @@ def analyze_hotel():
 def index():
     # save all hotels in elastic
     # get all the data
-    docs = data_loader.get_data_docs()
+    data = data_loader.get_data()
     # start saving the data in a separate thread in the background
-    storing_job = Thread(target=store_labled_docs, args=("hotels", docs))
+    storing_job = Thread(target=store_labled_docs, args=("hotels", data))
     storing_job.start()
     return jsonify({
         "status": "data is being stored in elasticsearch, you can get a quick look on the /list endpoint"
@@ -78,5 +115,8 @@ def index():
 @app.route("/list", methods=['GET'])
 def list_some():
     # view sample docs
-    elastic_res = elastic.get_docs("hotels")
-    return jsonify(elastic_res)
+    try:
+        elastic_res = elastic.get_docs("hotels")
+        return jsonify(elastic_res)
+    except Exception as ex:
+        return jsonify({"error":"the index is not yet created, there may be an error or the index was not yet created!"})

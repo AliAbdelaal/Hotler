@@ -48,13 +48,13 @@ you will get a json response in one of the following formats
 
 ```json
 {
-    "status" : "SUCCESS",
-    "scores": {
-        "anger": 0.515031,
-        "fear": 0,
-        "joy": 0.6710253499999999,
-        "sadness": 0.5864978571428571
-    }
+  "status": "SUCCESS",
+  "scores": {
+    "anger": 0.515031,
+    "fear": 0,
+    "joy": 0.6710253499999999,
+    "sadness": 0.5864978571428571
+  }
 }
 ```
 
@@ -62,10 +62,10 @@ you will get a json response in one of the following formats
 
 ```json
 {
-    "status" : "FAILED",
-    "error": {
-        "error_msg": "the hotel {hotel_name} doesn't exist."
-        }
+  "status": "FAILED",
+  "error": {
+    "error_msg": "the hotel {hotel_name} doesn't exist."
+  }
 }
 ```
 
@@ -73,11 +73,11 @@ you will get a json response in one of the following formats
 
 ```json
 {
-    "status" : "ERROR",
-    "error": {
-        "error_code": error_code,
-        "error_msg": error_msg
-    }
+  "status": "ERROR",
+  "error": {
+    "error_code": error_code,
+    "error_msg": error_msg
+  }
 }
 ```
 
@@ -100,45 +100,69 @@ here is a sample of the stored data
 ```json
 {
   "_shards": {
-    "failed": 0, 
-    "skipped": 0, 
-    "successful": 1, 
+    "failed": 0,
+    "skipped": 0,
+    "successful": 1,
     "total": 1
-  }, 
+  },
   "hits": {
     "hits": [
       {
-        "_id": "dDXiTnABYJL5cMN1mDT4", 
-        "_index": "hotels", 
-        "_score": 1.0, 
+        "_id": "u0U6UHABscdq1LZ_sMHo",
+        "_index": "hotels",
+        "_score": 1.0,
         "_source": {
-          "Unnamed: 0": 0, 
-          "address": "Riviera San Nicol 11/a", 
-          "categories": "Hotels", 
-          "city": "Mableton", 
-          "country": "US", 
-          "latitude": 45.421611, 
-          "longitude": 12.376187, 
-          "name": "Hotel Russo Palace", 
-          "postalCode": "30126", 
-          "province": "GA", 
-          "reviews.date": "2013-09-22T00:00:00Z", 
-          "reviews.dateAdded": "2016-10-24T00:00:25Z", 
-          "reviews.doRecommend": null, 
-          "reviews.id": null, 
-          "reviews.rating": 4.0, 
-          "reviews.text": "Pleasant 10 min walk along the sea front to the Water Bus. restaurants etc. Hotel was comfortable breakfast was good - quite a variety. Room aircon didn't work very well. Take mosquito repelant!", 
-          "reviews.title": "Good location away from the crouds", 
-          "reviews.userCity": null, 
-          "reviews.userProvince": null, 
-          "reviews.username": "Russ (kent)", 
+          "branchs": {
+            "Mableton": {
+              "data": [
+                {
+                  "Unnamed: 0": 0,
+                  "address": "Riviera San Nicol 11/a",
+                  "categories": "Hotels",
+                  "city": "Mableton",
+                  "country": "US",
+                  "latitude": 45.421611,
+                  "longitude": 12.376187,
+                  "name": "Hotel Russo Palace",
+                  "postalCode": "30126",
+                  "province": "GA",
+                  "reviews.date": "2013-09-22T00:00:00Z",
+                  "reviews.dateAdded": "2016-10-24T00:00:25Z",
+                  "reviews.doRecommend": null,
+                  "reviews.id": null,
+                  "reviews.rating": 4.0,
+                  "reviews.text": "Pleasant 10 min walk along the sea front to the Water Bus. restaurants etc. Hotel was comfortable breakfast was good - quite a variety. Room aircon didn't work very well. Take mosquito repelant!",
+                  "reviews.title": "Good location away from the crouds",
+                  "reviews.userCity": null,
+                  "reviews.userProvince": null,
+                  "reviews.username": "Russ (kent)"
+                },
+"tone": {
+                "anger": 0,
+                "fear": 0,
+                "joy": 0.7093487333333333,
+                "sadness": 0.612534625
+              }
+            }
+          },
+          "name": "Hotel Russo Palace",
           "tone": {
-            "anger": 0, 
-            "fear": 0, 
-            "joy": 0.766802, 
-            "sadness": 0.613315
+            "anger": 0.0,
+            "fear": 0.0,
+            "joy": 0.7093487333333333,
+            "sadness": 0.612534625
           }
-        }, 
+        },
         "_type": "_doc"
-      }, 
+      }
+    ],
+    "max_score": 1.0,
+    "total": {
+      "relation": "eq",
+      "value": 1
+    }
+  },
+  "timed_out": false,
+  "took": 2
+}
 ```

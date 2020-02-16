@@ -17,15 +17,11 @@ class ToneAnalyzer:
         self.__tone_analyzer.set_service_url(config.URL)
 
 
-    def analyze_text(self, text, sentences=True): 
+    def analyze_text(self, text): 
         """analyze the given text sentences and aggregate the results
         
         Arguments:
-            text {str} -- the input text
-
-        Keyword Arguments:
-            sentences {bool} -- calculate the results on sentence level (default: {True})
-            
+            text {str} -- the input text            
 
         Returns:
             dict -- the aggregated result {'anger': 0, 'fear': 0, 'joy': 0, 'sadness': 0}
@@ -38,28 +34,28 @@ class ToneAnalyzer:
         content_type='application/json').get_result()
 
 
-        if sentences:
-            scores = dict.fromkeys(emotions, [])
-            # count the results from sentences
-            for sentence in tone_analysis['sentences_tone']:
-                for tone in sentence['tones']:
-                    if tone['tone_id'] in emotions:
-                        if scores.get(tone['tone_id'], None):
-                            scores[tone['tone_id']].append(tone['score'])
-                        else:
-                            scores[tone['tone_id']] = [tone['score']]
-            # normalize the results
-            for key in scores:
-                if not scores[key]:
-                    scores[key]=  0
-                else:
-                    scores[key] = sum(scores[key])/len(scores[key])
-        else:
-            scores = dict.fromkeys(emotions, 0)
 
+        # if there's no score for the sentences see the overall tone
+        if not tone_analysis.get('sentences_tone', None):
+            scores = dict.fromkeys(emotions, 0)
             for tone in tone_analysis['document_tone']['tones']:
                 if tone['tone_id'] in emotions:
                     scores[tone['tone_id']] += tone['score']
-        
-        return scores
+            return scores
 
+        # count the results from sentences
+        scores = dict.fromkeys(emotions, [])
+        for sentence in tone_analysis['sentences_tone']:
+            for tone in sentence['tones']:
+                if tone['tone_id'] in emotions:
+                    if scores.get(tone['tone_id'], None):
+                        scores[tone['tone_id']].append(tone['score'])
+                    else:
+                        scores[tone['tone_id']] = [tone['score']]
+        # normalize the results
+        for key in scores:
+            if not scores[key]:
+                scores[key]=  0
+            else:
+                scores[key] = sum(scores[key])/len(scores[key])
+        return scores

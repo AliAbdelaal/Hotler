@@ -26,30 +26,30 @@
 <p>you will get a json response in one of the following formats</p>
 <p>1.on success</p>
 <pre><code class="lang-json">{
-    <span class="hljs-attr">"status"</span> : <span class="hljs-string">"SUCCESS"</span>,
-    <span class="hljs-attr">"scores"</span>: {
-        <span class="hljs-attr">"anger"</span>: <span class="hljs-number">0.515031</span>,
-        <span class="hljs-attr">"fear"</span>: <span class="hljs-number">0</span>,
-        <span class="hljs-attr">"joy"</span>: <span class="hljs-number">0.6710253499999999</span>,
-        <span class="hljs-attr">"sadness"</span>: <span class="hljs-number">0.5864978571428571</span>
-    }
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"SUCCESS"</span>,
+  <span class="hljs-attr">"scores"</span>: {
+    <span class="hljs-attr">"anger"</span>: <span class="hljs-number">0.515031</span>,
+    <span class="hljs-attr">"fear"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"joy"</span>: <span class="hljs-number">0.6710253499999999</span>,
+    <span class="hljs-attr">"sadness"</span>: <span class="hljs-number">0.5864978571428571</span>
+  }
 }
 </code></pre>
 <p>2.fail due to new hotel that is not in the db</p>
 <pre><code class="lang-json">{
-    <span class="hljs-attr">"status"</span> : <span class="hljs-string">"FAILED"</span>,
-    <span class="hljs-attr">"error"</span>: {
-        <span class="hljs-attr">"error_msg"</span>: <span class="hljs-string">"the hotel {hotel_name} doesn't exist."</span>
-        }
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"FAILED"</span>,
+  <span class="hljs-attr">"error"</span>: {
+    <span class="hljs-attr">"error_msg"</span>: <span class="hljs-string">"the hotel {hotel_name} doesn't exist."</span>
+  }
 }
 </code></pre>
 <p>3.fail due to some ibm error</p>
 <pre><code class="lang-json">{
-    <span class="hljs-attr">"status"</span> : <span class="hljs-string">"ERROR"</span>,
-    <span class="hljs-attr">"error"</span>: {
-        <span class="hljs-attr">"error_code"</span>: error_code,
-        <span class="hljs-attr">"error_msg"</span>: error_msg
-    }
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"ERROR"</span>,
+  <span class="hljs-attr">"error"</span>: {
+    <span class="hljs-attr">"error_code"</span>: error_code,
+    <span class="hljs-attr">"error_msg"</span>: error_msg
+  }
 }
 </code></pre>
 <p>You can try these links as example</p>
@@ -62,45 +62,69 @@
 <p>here is a sample of the stored data</p>
 <pre><code class="lang-json">{
   <span class="hljs-attr">"_shards"</span>: {
-    <span class="hljs-attr">"failed"</span>: <span class="hljs-number">0</span>, 
-    <span class="hljs-attr">"skipped"</span>: <span class="hljs-number">0</span>, 
-    <span class="hljs-attr">"successful"</span>: <span class="hljs-number">1</span>, 
+    <span class="hljs-attr">"failed"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"skipped"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"successful"</span>: <span class="hljs-number">1</span>,
     <span class="hljs-attr">"total"</span>: <span class="hljs-number">1</span>
-  }, 
+  },
   <span class="hljs-attr">"hits"</span>: {
     <span class="hljs-attr">"hits"</span>: [
       {
-        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"dDXiTnABYJL5cMN1mDT4"</span>, 
-        <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"hotels"</span>, 
-        <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1.0</span>, 
+        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"u0U6UHABscdq1LZ_sMHo"</span>,
+        <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"hotels"</span>,
+        <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1.0</span>,
         <span class="hljs-attr">"_source"</span>: {
-          <span class="hljs-attr">"Unnamed: 0"</span>: <span class="hljs-number">0</span>, 
-          <span class="hljs-attr">"address"</span>: <span class="hljs-string">"Riviera San Nicol 11/a"</span>, 
-          <span class="hljs-attr">"categories"</span>: <span class="hljs-string">"Hotels"</span>, 
-          <span class="hljs-attr">"city"</span>: <span class="hljs-string">"Mableton"</span>, 
-          <span class="hljs-attr">"country"</span>: <span class="hljs-string">"US"</span>, 
-          <span class="hljs-attr">"latitude"</span>: <span class="hljs-number">45.421611</span>, 
-          <span class="hljs-attr">"longitude"</span>: <span class="hljs-number">12.376187</span>, 
-          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hotel Russo Palace"</span>, 
-          <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"30126"</span>, 
-          <span class="hljs-attr">"province"</span>: <span class="hljs-string">"GA"</span>, 
-          <span class="hljs-attr">"reviews.date"</span>: <span class="hljs-string">"2013-09-22T00:00:00Z"</span>, 
-          <span class="hljs-attr">"reviews.dateAdded"</span>: <span class="hljs-string">"2016-10-24T00:00:25Z"</span>, 
-          <span class="hljs-attr">"reviews.doRecommend"</span>: <span class="hljs-literal">null</span>, 
-          <span class="hljs-attr">"reviews.id"</span>: <span class="hljs-literal">null</span>, 
-          <span class="hljs-attr">"reviews.rating"</span>: <span class="hljs-number">4.0</span>, 
-          <span class="hljs-attr">"reviews.text"</span>: <span class="hljs-string">"Pleasant 10 min walk along the sea front to the Water Bus. restaurants etc. Hotel was comfortable breakfast was good - quite a variety. Room aircon didn't work very well. Take mosquito repelant!"</span>, 
-          <span class="hljs-attr">"reviews.title"</span>: <span class="hljs-string">"Good location away from the crouds"</span>, 
-          <span class="hljs-attr">"reviews.userCity"</span>: <span class="hljs-literal">null</span>, 
-          <span class="hljs-attr">"reviews.userProvince"</span>: <span class="hljs-literal">null</span>, 
-          <span class="hljs-attr">"reviews.username"</span>: <span class="hljs-string">"Russ (kent)"</span>, 
-          <span class="hljs-attr">"tone"</span>: {
-            <span class="hljs-attr">"anger"</span>: <span class="hljs-number">0</span>, 
-            <span class="hljs-attr">"fear"</span>: <span class="hljs-number">0</span>, 
-            <span class="hljs-attr">"joy"</span>: <span class="hljs-number">0.766802</span>, 
-            <span class="hljs-attr">"sadness"</span>: <span class="hljs-number">0.613315</span>
+          <span class="hljs-attr">"branchs"</span>: {
+            <span class="hljs-attr">"Mableton"</span>: {
+              <span class="hljs-attr">"data"</span>: [
+                {
+                  <span class="hljs-attr">"Unnamed: 0"</span>: <span class="hljs-number">0</span>,
+                  <span class="hljs-attr">"address"</span>: <span class="hljs-string">"Riviera San Nicol 11/a"</span>,
+                  <span class="hljs-attr">"categories"</span>: <span class="hljs-string">"Hotels"</span>,
+                  <span class="hljs-attr">"city"</span>: <span class="hljs-string">"Mableton"</span>,
+                  <span class="hljs-attr">"country"</span>: <span class="hljs-string">"US"</span>,
+                  <span class="hljs-attr">"latitude"</span>: <span class="hljs-number">45.421611</span>,
+                  <span class="hljs-attr">"longitude"</span>: <span class="hljs-number">12.376187</span>,
+                  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hotel Russo Palace"</span>,
+                  <span class="hljs-attr">"postalCode"</span>: <span class="hljs-string">"30126"</span>,
+                  <span class="hljs-attr">"province"</span>: <span class="hljs-string">"GA"</span>,
+                  <span class="hljs-attr">"reviews.date"</span>: <span class="hljs-string">"2013-09-22T00:00:00Z"</span>,
+                  <span class="hljs-attr">"reviews.dateAdded"</span>: <span class="hljs-string">"2016-10-24T00:00:25Z"</span>,
+                  <span class="hljs-attr">"reviews.doRecommend"</span>: <span class="hljs-literal">null</span>,
+                  <span class="hljs-attr">"reviews.id"</span>: <span class="hljs-literal">null</span>,
+                  <span class="hljs-attr">"reviews.rating"</span>: <span class="hljs-number">4.0</span>,
+                  <span class="hljs-attr">"reviews.text"</span>: <span class="hljs-string">"Pleasant 10 min walk along the sea front to the Water Bus. restaurants etc. Hotel was comfortable breakfast was good - quite a variety. Room aircon didn't work very well. Take mosquito repelant!"</span>,
+                  <span class="hljs-attr">"reviews.title"</span>: <span class="hljs-string">"Good location away from the crouds"</span>,
+                  <span class="hljs-attr">"reviews.userCity"</span>: <span class="hljs-literal">null</span>,
+                  <span class="hljs-attr">"reviews.userProvince"</span>: <span class="hljs-literal">null</span>,
+                  <span class="hljs-attr">"reviews.username"</span>: <span class="hljs-string">"Russ (kent)"</span>
+                },
+<span class="hljs-string">"tone"</span>: {
+                <span class="hljs-attr">"anger"</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">"fear"</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">"joy"</span>: <span class="hljs-number">0.7093487333333333</span>,
+                <span class="hljs-attr">"sadness"</span>: <span class="hljs-number">0.612534625</span>
+              }
+            }
+          },
+          <span class="hljs-string">"name"</span>: <span class="hljs-string">"Hotel Russo Palace"</span>,
+          <span class="hljs-string">"tone"</span>: {
+            <span class="hljs-attr">"anger"</span>: <span class="hljs-number">0.0</span>,
+            <span class="hljs-attr">"fear"</span>: <span class="hljs-number">0.0</span>,
+            <span class="hljs-attr">"joy"</span>: <span class="hljs-number">0.7093487333333333</span>,
+            <span class="hljs-attr">"sadness"</span>: <span class="hljs-number">0.612534625</span>
           }
-        }, 
-        <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"_doc"</span>
-      },
+        },
+        <span class="hljs-string">"_type"</span>: <span class="hljs-string">"_doc"</span>
+      }
+    ],
+    <span class="hljs-attr">"max_score"</span>: <span class="hljs-number">1.0</span>,
+    <span class="hljs-attr">"total"</span>: {
+      <span class="hljs-attr">"relation"</span>: <span class="hljs-string">"eq"</span>,
+      <span class="hljs-attr">"value"</span>: <span class="hljs-number">1</span>
+    }
+  },
+  <span class="hljs-attr">"timed_out"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"took"</span>: <span class="hljs-number">2</span>
+}
 </code></pre>

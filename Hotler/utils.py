@@ -31,8 +31,15 @@ class DataLoader():
         Returns:
             list -- list of docs
         """
-
         return self.__data.replace({np.nan: None}).to_dict("records")
+
+    def get_data(self)->pd.DataFrame:
+        """get all the DataFrame
+        
+        Returns:
+            pd.DataFrame -- the resulting dataframe with no Nan values
+        """
+        return self.__data.replace({np.nan: None})
 
 
 class Elastic():
